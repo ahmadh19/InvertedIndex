@@ -30,7 +30,8 @@ public class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 		while (itr.hasMoreTokens()) {
 			word.set(itr.nextToken());
 			word = norm.normalize(word);
-			context.write(word, one);
+			if(!norm.inStopWords(word))
+				context.write(word, one);
 		}
 	}
 }
