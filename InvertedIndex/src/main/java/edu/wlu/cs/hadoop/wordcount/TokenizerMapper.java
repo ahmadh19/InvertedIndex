@@ -23,12 +23,15 @@ public class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
 	private final static IntWritable one = new IntWritable(1);
 	private Text word = new Text();
+	private Normalizer norm = new Normalizer();
 
 	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		StringTokenizer itr = new StringTokenizer(value.toString());
 		while (itr.hasMoreTokens()) {
 			word.set(itr.nextToken());
-			context.write(word, one);
+			word = norm.normalize(word);
+			if(!norm.inStopWords(word))
+				context.write(word, one);
 		}
 	}
 }
