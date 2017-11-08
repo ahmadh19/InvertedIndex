@@ -7,6 +7,8 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+import edu.wlu.cs.hadoop.invertedindex.Normalizer;
+
 /**
  * Reads input from the default TextInputFormat.
  * 
