@@ -15,6 +15,7 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
 	private final static Text document = new Text(); // can this be static and final?
 													 // it doesn't change, does it??
 	private Text word = new Text();
+	private Normalizer norm = new Normalizer();
 
 	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		
@@ -28,7 +29,9 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
 		 
 		for(String s : words){ 
 			word.set(s);
-			context.write(word, document);
+			word = norm.normalize(word);
+			if(!norm.inStopWords(word))
+				context.write(word, document);
 		}
 	}
 }
