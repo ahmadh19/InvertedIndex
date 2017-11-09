@@ -1,6 +1,5 @@
 package edu.wlu.cs.hadoop.invertedindex;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,8 @@ import org.apache.hadoop.io.Text;
 
 /**
  * Normalizes Text by lowercasing and removing punctuation as long as
- * the punctuation removal doesn't change the Text's meaning
+ * the punctuation removal doesn't change the Text's meaning. Also includes
+ * a list of stopwords to not include in the InvertedIndex.
  * @author cooperbaird
  */
 public class Normalizer {
