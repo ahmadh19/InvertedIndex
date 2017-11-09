@@ -1,4 +1,4 @@
-package edu.wlu.cs.hadoop.wordcount;
+package edu.wlu.cs.hadoop.invertedindex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
