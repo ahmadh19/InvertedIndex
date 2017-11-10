@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileSplit;
  */
 public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
 
-	private final static Text document = new Text(); // can this be static and final?
+	private Text document = new Text(); // can this be static and final?
 													 // it doesn't change, does it??
 	private Text word = new Text();
 	private Normalizer norm = new Normalizer();

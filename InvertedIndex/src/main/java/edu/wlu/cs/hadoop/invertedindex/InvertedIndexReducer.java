@@ -1,6 +1,8 @@
 package edu.wlu.cs.hadoop.invertedindex;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -20,8 +22,13 @@ public class InvertedIndexReducer extends Reducer<Text, Text, Text, Text> {
 			throws IOException, InterruptedException {
 		
 		StringBuilder str = new StringBuilder();
+		Set<Text> valuesSet = new TreeSet<Text>();
 		
 		for(Text text : values) {
+			valuesSet.add(text);
+		}
+		
+		for(Text text : valuesSet) {
 			str.append(text.toString() + ", ");
 		}
 		
