@@ -22,33 +22,36 @@ public class QueryInvertedIndex {
 		StringBuilder returnStr = new StringBuilder();
 		Normalizer norm = new Normalizer();
 		
-		//TODO: update Normalizer.java to use Strings instead, so that the class can be used here to check for stopwords
-		
 		if(args.length == 2) {
 			fileName = args[0];
 			queryWord = args[1];
 		}
 		
-		//queryWord = "six";
+		//queryWord = "Drive";
+		queryWord = norm.normalize(queryWord);
 
-		Scanner scanner;
-		try {
-			scanner = new Scanner(new File(fileName));
-			while(scanner.hasNextLine()){
-				String str = scanner.nextLine();
-				// check if the FIRST word in the line is the query word
-				// this is because some words, e.g. six, show up in fileNames as well (and can throw off results)
-				if(str.indexOf(queryWord) == 0){ 
-					System.out.println(str);
-					String[] words = str.split("[ \t]");
-					for(int i = 1; i <  words.length; i++) { // skip the first word, i.e. the query word
-						returnStr.append(words[i] + " ");
+		if(!norm.inStopWords(queryWord)) {
+			Scanner scanner;
+			try {
+				scanner = new Scanner(new File(fileName));
+				while(scanner.hasNextLine()){
+					String str = scanner.nextLine();
+					// check if the FIRST word in the line is the query word
+					// this is because some words, e.g. six, show up in fileNames as well (and can throw off results)
+					if(str.indexOf(queryWord) == 0){ 
+						//System.out.println(str);
+						String[] words = str.split("[ \t]");
+						for(int i = (queryWord.split("\\s")).length; i <  words.length; i++) { // skip the query word from returnStr
+							returnStr.append(words[i] + " ");
+						}
 					}
 				}
+				System.out.println(returnStr.toString());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-			System.out.println(returnStr.toString());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} else {
+			System.out.println("The query word \"" + queryWord +"\" is in the stop words list. It is not included in the inverted index.");
 		}
 
 	}
