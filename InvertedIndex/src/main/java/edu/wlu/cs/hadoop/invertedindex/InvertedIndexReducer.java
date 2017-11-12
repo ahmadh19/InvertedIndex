@@ -38,7 +38,7 @@ public class InvertedIndexReducer extends Reducer<Text, Text, Text, Text> {
 		
 		for(Text text : valuesSet) {
 			if(!text.toString().equals(""))
-				str.append(text.toString() + ", ");
+				str.append(text.toString() + " ");
 		}
 		
 		documents.set(str.toString());

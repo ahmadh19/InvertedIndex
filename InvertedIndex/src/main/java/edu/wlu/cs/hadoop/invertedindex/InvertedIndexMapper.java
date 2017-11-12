@@ -26,7 +26,6 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
 	 */
 	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		
-		//TODO: Ask Prof. Sprenkle if this looks correct!
 		Path path = ((FileSplit) context.getInputSplit()).getPath();
 		String fileName = path.getName();
 		document.set(fileName);
@@ -35,9 +34,9 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
 		String words[] = line.split(" "); // split on the space delimiter to get the words in the document
 		 
 		for(String s : words){ 
+			s = norm.normalize(s);
 			word.set(s);
-			word = norm.normalize(word);
-			if(!norm.inStopWords(word))
+			if(!norm.inStopWords(s))
 				context.write(word, document);
 		}
 	}
