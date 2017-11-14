@@ -15,4 +15,4 @@ To run the querying program, do the following:
 	a. "cd" to the directory containing your jar file.
 	b. Run the following command: "java -jar jarFileName.jar arg1 arg2", where
 		arg1 = the directory + file name of the inverted index file, e.g. /Users/hammad/Downloads/output.txt
-		arg2 = query word
+		arg2 = queryWord
